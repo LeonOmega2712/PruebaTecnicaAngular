@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h1>Pantalla de registro</h1>
+      <hr />
+      <p>Por favor ingrese sus datos para registrarse</p>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">@</span>
+        <input
+          name="email"
+          type="email"
+          required
+          class="form-control"
+          placeholder="correo"
+          aria-label="correo"
+          aria-describedby="basic-addon1"
+          [(ngModel)]="user.correo"
+          required
+          email
+          #email="ngModel"
+        />
+      </div>
+      <div *ngIf="email.errors?.email">Revise que su correo sea correcto</div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">***</span>
+        <input
+          type="password"
+          required
+          class="form-control"
+          placeholder="password"
+          aria-label="password"
+          aria-describedby="basic-addon1"
+          [(ngModel)]="user.password"
+        />
+      </div>
+      <p>Seleccione su rol</p>
+      <select
+        required
+        class="form-select"
+        aria-label="Default select example"
+        [(ngModel)]="user.rol"
+      >
+        <option *ngFor="let rol of roles">
+          {{ rol }}
+        </option>
+      </select>
+
+      <button class="btn btn-primary mt-2 me-1" (click)="registrar()" [disabled]="email.errors?.email" [disabled]="!validado">
+        Registrarse
+      </button>
+      <div *ngIf="registrado" class="alert alert-success mt-2">
+        Usuario registrado correctamente! Ahora puedes ir e
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active"
+          >iniciar sesión</a
+        >
+        con tu cuenta
+      </div>
+    </div>
+    <div class="row">
+      <p>
+        Ya tienes una cuenta?
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active"
+          >Iniciar sesión</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

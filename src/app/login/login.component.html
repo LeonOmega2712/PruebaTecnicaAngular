@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h1>Pantalla de login</h1>
+      <hr />
+      <p>Por favor ingrese sus datos para iniciar sesion</p>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">@</span>
+        <input
+          name="email"
+          type="email"
+          class="form-control"
+          placeholder="correo"
+          aria-label="correo"
+          aria-describedby="basic-addon1"
+          [(ngModel)]="user.correo"
+          required
+          email
+          #email="ngModel"
+        />
+      </div>
+      <div *ngIf="email.errors?.email">Revise que su correo sea correcto</div>
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">***</span>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="password"
+          aria-label="password"
+          aria-describedby="basic-addon1"
+          [(ngModel)]="user.password"
+          required
+        />
+      </div>
+      <button class="btn btn-primary" type="submit" (click)="iniciarSesion()" [disabled]="email.errors?.email" [disabled]="!validado" >
+        Iniciar sesion
+      </button>
+    </div>
+    <div class="row">
+      <p>
+        No tienes una cuenta?
+        <a [routerLink]="['']" routerLinkActive="router-link-active"
+          >Registrarse</a
+        >
+      </p>
+    </div>
+  </div>
+</div>

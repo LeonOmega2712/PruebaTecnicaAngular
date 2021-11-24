@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h1>Bienvenido usuario {{ rol }}</h1>
+    </div>
+  </div>
+  <hr />
+  <div class="row" *ngIf="!tienePermiso">
+    <div class="col">
+      <div class="alert alert-danger">
+        Lamentablemente no cuenta con los permisos para ver la tabla de usuarios
+        <br />
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active"
+          >Regresar al login</a
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="tienePermiso">
+    <div class="col">
+      <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">🔍</span>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Buscar usuario por correo"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          [(ngModel)]="correoBuscado"
+        />
+        <span
+          class="input-group-text btn btn-primary"
+          style="cursor: pointer"
+          (click)="buscarUsuario()"
+          >Buscar</span
+        >
+      </div>
+
+      <div class="card" *ngIf="coincidenciasDeBusqueda.length != 0">
+        <div class="card-header">
+          Resultados de busqueda
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let correo of coincidenciasDeBusqueda">{{correo}}</li>
+        </ul>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Rol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usr of listaUsuarios; let i = index">
+            <th scope="row">{{ i + 1 }}</th>
+            <th>{{ usr.correo }}</th>
+            <td>{{ usr.rol | titlecase }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <button
+        class="btn btn-outline-danger"
+        [routerLink]="['/login']"
+        routerLinkActive="router-link-active"
+      >
+        Cerrar sesión
+      </button>
+    </div>
+  </div>
+</div>
